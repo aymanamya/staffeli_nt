@@ -253,7 +253,14 @@ class GradingSheet:
             except TypeError:
                 return None
         if ass.passing_points is not None:
-            return 1 if total >= ass.passing_points else 0
+            points = total / ass.total_points
+            if 0.5 <= points <= 0.85:
+                return ass.passing_points // 2
+            elif points < 0.5:
+                return 0
+            else:
+                return ass.passing_points
+            # return 1 if total >= ass.passing_points else 0
         else:
             return total
 
